@@ -1,4 +1,4 @@
 # MVVMDataBindingExampleKotlin
 
 #Demo
-![Demo](https://github.com/zjkuang/MVVMDataBindingExampleKotlin/blob/master/MVVMDataBindingExampleKotlin.gif | height=200)
+![Demo](https://github.com/zjkuang/MVVMDataBindingExampleKotlin/blob/master/MVVMDataBindingExampleKotlin.gif | width=200)
