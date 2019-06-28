@@ -24,7 +24,7 @@ That's it. As easy as pie, right?
 
 One thing worth mentioning, if you dig into JKObservable, you may have noticed a
 
-var writer: Any = Unit
+    var writer: Any = Unit
 
 The comments which is above the "write" variable explains the purpose,
 
