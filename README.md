@@ -8,17 +8,17 @@ The main idea is to define two classes with generic, JKObservable<T> and JKObser
 
 Usage is very simple. In the example, we created an object ColorMixture holding integer values (ranging from 0 to 255) for RGB.
 
-object ColorMixture {
-    var red = JKObservable<Int>(0)
-    var green = JKObservable<Int>(0)
-    var blue = JKObservable<Int>(0)
-}
+    object ColorMixture {
+        var red = JKObservable<Int>(0)
+        var green = JKObservable<Int>(0)
+        var blue = JKObservable<Int>(0)
+    }
 
 In order to let a view observe the color value of "red" in object ColorMixture, as shown in our example's MainActivity, we created an observer
 
-private val redObserver = JKObserver<Int>(ColorMixture.red, onChange = { oldValue: Int, newValue: Int ->
-    // update UI element(s) according to newValue
-})
+    private val redObserver = JKObserver<Int>(ColorMixture.red, onChange = { oldValue: Int, newValue: Int ->
+        // update UI element(s) according to newValue
+    })
 
 That's it. As easy as pie, right?
 
@@ -28,34 +28,34 @@ var writer: Any = Unit
 
 The comments which is above the "write" variable explains the purpose,
 
-// For recording who changed the value
-// In some cases, a UI element can both be the changer and the observer of a same observable. It may cause an infinite loop like
-//  (1) The user operates the UI and changes the value of a UI element, say controlA
-//  (2) controlA's listener is triggered by the change, and then writes the new value to the observable, say observableO
-//  (3) The onChange block of the observer is triggered by observerO's value change, and then updates all the related UI elements, including controlA
-//  (4) controlA's listener is triggered again by step(3) and an infinite loop between step(2) and step(3) started
-//  (...)
-//  (n) Finally the app crashed
-// To avoid this, in this scenario, in step(2), mark the "writer" as self (controlA) before writing the new value to the observable, and in step(3), update all the UI elements OTHER THAN the writer itself.
+    // For recording who changed the value
+    // In some cases, a UI element can both be the changer and the observer of a same observable. It may cause an infinite loop like
+    //  (1) The user operates the UI and changes the value of a UI element, say controlA
+    //  (2) controlA's listener is triggered by the change, and then writes the new value to the observable, say observableO
+    //  (3) The onChange block of the observer is triggered by observerO's value change, and then updates all the related UI elements, including controlA
+    //  (4) controlA's listener is triggered again by step(3) and an infinite loop between step(2) and step(3) started
+    //  (...)
+    //  (n) Finally the app crashed
+    // To avoid this, in this scenario, in step(2), mark the "writer" as self (controlA) before writing the new value to the observable, and in step(3), update all the UI elements OTHER THAN the writer itself.
 
 As in our example, we can see
 
-redSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        ColorMixture.red.writer = redSeekBar
-        ColorMixture.red.value = progress
-    }
-    ...
-})
+    redSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            ColorMixture.red.writer = redSeekBar
+            ColorMixture.red.value = progress
+        }
+        // ...
+    })
 
 
-private val redObserver = JKObserver<Int>(ColorMixture.red, onChange = { oldValue: Int, newValue: Int ->
-    // check writer and update redSeekBar
-    if (ColorMixture.red.writer != redSeekBar) {
-        redSeekBar.setProgress(newValue)
-    }
-    // check writer and update other UI elements
-})
+    private val redObserver = JKObserver<Int>(ColorMixture.red, onChange = { oldValue: Int, newValue: Int ->
+        // check writer and update redSeekBar
+        if (ColorMixture.red.writer != redSeekBar) {
+            redSeekBar.setProgress(newValue)
+        }
+        // check writer and update other UI elements
+    })
 
 # Demo
 ![](https://github.com/zjkuang/MVVMDataBindingExampleKotlin/blob/master/MVVMDataBindingExampleKotlin.gif)
