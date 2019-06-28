@@ -11,7 +11,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.SeekBar
-import com.jandjzone.james.`class`.JKObserver
+import com.jandjzone.mvvmdatabindingexample.`class`.JKObserver
 import com.jandjzone.mvvmdatabindingexample.viewmodel.ColorMixture
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -61,7 +61,10 @@ class MainActivity : AppCompatActivity() {
     private fun setListeners() {
         redSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+
+                // Seek
                 ColorMixture.red.writer = redSeekBar
+
                 ColorMixture.red.value = progress
             }
 

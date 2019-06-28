@@ -1,6 +1,6 @@
 package com.jandjzone.mvvmdatabindingexample.viewmodel
 
-import com.jandjzone.james.`class`.JKObservable
+import com.jandjzone.mvvmdatabindingexample.`class`.JKObservable
 
 object ColorMixture {
 
