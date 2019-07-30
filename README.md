@@ -57,5 +57,7 @@ As in our example, we can see
         // check writer and update other UI elements
     })
 
+[(The iOS/Swift solution is also available)](https://github.com/zjkuang/MVVMDataBindingExampleSwift)
+
 # Demo
 ![](https://github.com/zjkuang/MVVMDataBindingExampleKotlin/blob/master/MVVMDataBindingExampleKotlin.gif)
